@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>Sign In</title>
+
+        <link rel = "stylesheet"
+        href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity = "sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin = "anonymous">
+
+        <style>
+            #wrapper {
+                padding-left: 30px;
+                background-color: lightgrey;
+            }
+            h1 {
+                text-align: center;
+                padding-top: 10px;
+            }
+            #register {
+                width: 500px;
+                margin: 20px;
+                padding: 20px;
+                background-color: #87a8e7;
+                border-radius: 10px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            #login {
+                width: 500px;
+                margin: 20px;
+                padding: 20px;
+                background-color: #aac0eb;
+                border-radius: 10px;
+                display: inline-block;
+                vertical-align: top;
+            }
+            input[type = text] {
+                padding: 3px 5px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 250px;
+                box-sizing: border-box;
+            }
+            p {
+                margin-left: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "wrapper">
+            <h1>Welcome! Please login or register for an account below!</h1>
+            <div id = "register">
+                <h2>Register here!</h2>
+                {% for message in messages%}
+                    {% if 'register' in message.tags %}
+                        <p class = "text-danger">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+                <br>
+                <form action = '/reg_process' method = 'post'>
+                    {% csrf_token %}
+                    First Name:
+                    <br>
+                    <input type = 'text' name = 'first_name'>
+                    <br>
+                    <br>
+                
+                    Last Name:
+                    <br>
+                    <input type = 'text' name = 'last_name'>
+                    <br>
+                    <br>
+            
+                    Email:
+                    <br>
+                    <input type = 'text' name = 'email'>
+                    <br>
+                    <br>
+            
+                    Password: (Must be 8 characters long
+                    and have a capital letter and a number)
+                    <br>
+                    <input type = 'text' name = 'password'>
+                    <br>
+                    <br>
+            
+                    Confirm password:
+                    <br>
+                    <input type = 'text' name = 'password_con'>
+                    <br>
+                    <br>
+                    <input type = 'submit' value = 'Register!'>
+                </form>
+                <a href = "/clear">Remove all users (For testing only)</a>
+            </div>
+            <div id = "login">
+                <h2>Login here!</h2>
+                {% for message in messages%}
+                    {% if 'login' in message.tags %}
+                        <p class = "text-danger">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+                <br>
+                <form action = '/log_process' method = 'post'>
+                    {% csrf_token %}
+                    Email:
+                    <br>
+                    <input type = 'text' name = 'email'>
+                    <br>
+                    <br>
+                    Password:
+                    <br>
+                    <input type = 'text' name = 'password'>
+                    <br>
+                    <br>
+                    <input type = 'submit' value = 'Login!'>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

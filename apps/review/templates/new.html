@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Add book and review</title>
+
+        <link rel = "stylesheet"
+        href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity = "sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin = "anonymous">
+
+        <style>
+            #top {
+                padding: 12px;
+                background-color: rgb(202, 245, 189);
+                text-align: right;
+            }
+            #main {
+                padding-left: 30px;
+                padding-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "top">
+            <a class = "btn" href = "/books">Home</a>
+            <a class = "btn" href = "/">Logout!</a>
+        </div>
+        <div id = "main">
+            {% for message in messages%}
+                {% if 'book' in message.tags %}
+                    <p class = "text-danger">{{message}}</p>
+                {% endif %}
+            {% endfor %}
+            <h4>Add a new book title and a review</h4>
+            <form action = '/add_process' method = 'post'>
+                {% csrf_token %}
+                Book title:
+                <input type = 'text' name = 'title'>
+                <br>
+                <br>
+                Author:
+                <br>
+                Choose from the list: 
+                <select name = "name">
+                    {% for author in authors %}
+                        <option value = "{{author.id}}">{{author.name}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <br>
+                Or, add a new author: 
+                <input type = 'text' name = 'add_name'>
+                <br>
+                <br>
+                Review: 
+                <br>
+                <textarea name = "review" cols = "50" rows = "3"></textarea>
+                <br>
+                <br>
+                Rating: 
+                <select name = "stars">
+                    <option value = "1">1</option>
+                    <option value = "2">2</option>
+                    <option value = "3">3</option>
+                    <option value = "4">4</option>
+                    <option value = "5">5</option>
+                </select>
+                stars
+                <br>
+                <br>
+                <input type = 'submit' value = 'Add book and review'>
+            </form>
+        </div>
+    </body>
+</html>

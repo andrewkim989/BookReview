@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Books Home</title>
+
+        <link rel = "stylesheet"
+        href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+        integrity = "sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin = "anonymous">
+
+        <style>
+            #top {
+                padding: 12px;
+                background-color: rgb(202, 245, 189);
+            }
+            #topright {
+                display: inline-block;
+                vertical-align: top;
+                margin-left: 700px;
+            }
+            h5 {
+                display: inline-block;
+                vertical-align: top;
+            }
+            a {
+                color: blue;
+            }
+            #blackline {
+                background-color: black;
+                height: 3px;
+            }
+            #recent {
+                display: inline-block;
+                vertical-align: top;
+                width: 700px;
+                padding: 10px;
+                padding-left: 20px;
+            }
+            #other {
+                display: inline-block;
+                vertical-align: top;
+                padding: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id = "top">
+            {% for message in messages%}
+                {% if 'register' in message.tags %}
+                    <p class = "text-success">{{message}}</p>
+                {% endif %}
+                {% if 'login' in message.tags %}
+                    <p class = "text-success">{{message}}</p>
+                {% endif %}
+            {% endfor %}
+            <h5>Welcome, {{u.first_name}}!</h5>
+            <div id = "topright">
+                <a class = "btn" href = "/add">Add book and review</a>
+                <a class = "btn" href = "/">Logout!</a>
+            </div>
+        </div>
+        <div id = "blackline"></div>
+        <div id = "main">
+            <div id = "recent">
+                <h4>Recent book reviews:</h4>
+                {% for review in reviews %}
+                    <a href = "/books/{{review.book.id}}">{{review.book.title}}</a>
+                    <p>Rating: {{review.stars}}</p>
+                    <p><a href = "/users/{{review.reviewer.id}}">{{review.reviewer.first_name}}</a>
+                    said: {{review.review}}</p>
+                    <p><i>Posted on {{review.created_at}}</i></p>
+                    <br>
+                {% endfor %}
+            </div>
+            <div id = "other">
+                <h4>Other books with reviews:</h4>
+                {% for book in books %}
+                    <a href = "/books/{{book.id}}">{{book.title}}</a>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
